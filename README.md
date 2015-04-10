@@ -1,5 +1,8 @@
 # Vagrant machine with the latest version of mininet
 
-The machine has 2 nics to act as a blackbox for network simulations
+Provision a VM with ansible following 
 
-It's provisioned with ansible so you need it for work
+## Requirements
+
+* Vagrant
+* Ansible
