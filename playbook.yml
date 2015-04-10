@@ -5,12 +5,35 @@
       lineinfile: "dest=/etc/sudoers.d/vagrant state=present create=yes regexp='^%vagrant ' line='%vagrant ALL=(ALL) NOPASSWD: ALL' validate=
 'visudo -cf %s'"
 
-    - name: Add midonet repositories
-      include: roles/midonet/tasks/repositories.yml
-
     - name: Update apt cache
       apt: update_cache=yes cache_valid_time=7200
 
 
-- hosts: nsdb
-  tags:
+
+  tasks:
+    - name: Install several packages needed and utilities
+      action: apt pkg={{ item }} state=installed
+      with_items:
+        - nmap
+        - tcpdump
+        - htop
+        - vim
+        - python-pip
+        - curl
+        - git
+        - unzip
+        - python-software-properties
+
+    - name: Download mininet
+      git: repo=https://github.com/mininet/mininet.git dest=/home/vagrant/mininet
+
+    - name: Install mininet
+      command: /home/vagrant/mininet/util/install.sh -a
+
+    - name: Test mininet
+      sudo: yes
+      command: mn --test pingall
+
+
+
+
