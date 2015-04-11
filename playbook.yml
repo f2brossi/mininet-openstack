@@ -15,6 +15,9 @@
       with_items:
         - nmap
         - tcpdump
+        - quagga
+        - screen
+        - curl
         - htop
         - vim
         - python-pip
