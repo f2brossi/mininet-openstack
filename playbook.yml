@@ -17,7 +17,7 @@
       zooid: "1"
 
     - role: cassandra
-      cluster: "midonet"
+      cluster_name: "midonet"
       listen_address: "127.0.0.1"
       seeds: "127.0.0.1"
 

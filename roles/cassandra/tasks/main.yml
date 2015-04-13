@@ -38,7 +38,3 @@
   service: name=cassandra state=started enabled=yes
   tags: Cassandra
 
-# I only could start cassandra as root from CLI
-- name: Start Workaraound Cassandra
-  action: shell cassandra
-  tags: Cassandra

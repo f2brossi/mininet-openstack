@@ -11,9 +11,9 @@ Provision a VM with ansible following
 
 vagrant box add trusty64 https://vagrant-kvm-boxes-si.s3.amazonaws.com/trusty64-kvm-20140418.box
 
-> If kvm complains about a SATA error you need to edit /usr/bin/kvm and add '-M q35'
+> If kvm complains about a SATA error (Ubuntu 14.04 at least for me) you need to edit /usr/bin/kvm and add '-M q35'
 
-```
+```sh
 #! /bin/sh
 exec qemu-system-x86_64 -M q35 -enable-kvm "$@"
 

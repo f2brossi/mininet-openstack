@@ -1,4 +1,33 @@
 ---
 
-- include: midolman.yml
+- name: Installs Midolman
+  apt: name=midolman state=present update_cache=yes
+  tags: Midolman
 
+- name: Configure Quagga
+  lineinfile: "dest=/etc/midolman/midolman.conf state=present regexp='^bgpd_binary' line='bgpd_binary = /usr/lib/quagga/'"
+
+- name: Creates Midolmans configuration file
+  ini_file: dest=/etc/midolman/midolman.conf
+            section="{{ item.section }}"
+            option="{{ item.option }}"
+            value="{{ item.value }}"
+  with_items:
+    - section:  zookeeper
+      option:   zookeeper_hosts
+      value:    "{{ zookeeper_hosts }}"
+    - section:  cassandra
+      option:   servers
+      value:    "{{ cassandra_hosts }}"
+    - section:  cassandra
+      option:   replication_factor
+      value:    3
+    - section:  cassandra
+      option:   cluster
+      value:    midonet
+  notify:
+     - Restarts Midolman
+
+- name: Starts Midolman
+  service: name=midolman state=started enabled=yes
+  tags: Midolman
