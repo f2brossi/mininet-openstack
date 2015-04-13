@@ -1,0 +1,44 @@
+---
+
+- name: Adds Cassandra's repository
+  apt_repository: repo='deb http://debian.datastax.com/community stable main' state=present
+  tags: Cassandra
+
+- name: Adds the key for Cassandra's repository
+  apt_key: url=http://debian.datastax.com/debian/repo_key state=present
+  tags: Cassandra
+
+- name: Installs Java
+  apt: name=openjdk-7-jre-headless state=present update_cache=yes
+  tags: Cassandra
+
+- name: Installs Cassandra
+  apt: name=cassandra=2.0.10 state=present update_cache=yes
+  tags: Cassandra
+
+- name: Installs dsc20
+  apt: name=dsc20=2.0.10-1 state=present update_cache=yes
+  tags: Cassandra
+
+- action:  shell apt-mark hold dsc20 cassandra
+  ignore_errors: yes
+
+- action:  shell rm -rf /var/lib/cassandra/*
+  ignore_errors: yes
+
+- name: Creates Cassandra's configuration file
+  template: src=cassandra.j2 dest=/etc/cassandra/cassandra.yaml
+  tags: Cassandra
+
+- name: Restarts Cassandra
+  service: name=cassandra state=restarted
+  tags: Cassandra
+
+- name: Start Cassandra
+  service: name=cassandra state=started enabled=yes
+  tags: Cassandra
+
+# I only could start cassandra as root from CLI
+- name: Start Workaraound Cassandra
+  action: shell cassandra
+  tags: Cassandra

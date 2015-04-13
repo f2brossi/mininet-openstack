@@ -1,0 +1,8 @@
+---
+
+- name: Install Midonet-CLI
+  action: apt pkg=python-midonetclient state=installed
+  tags: Midonet-cli
+
+- name: Configure Midonet CLI
+  template: src=midonetrc.j2 dest=~/.midonetrc

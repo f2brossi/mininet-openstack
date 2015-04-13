@@ -1,0 +1,4 @@
+---
+- name: Restarts Midolman
+  service: name=midolman state=restarted
+  tags: Midolman

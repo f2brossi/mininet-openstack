@@ -1,12 +1,38 @@
 ---
+
 - hosts: all
   pre_tasks:
     - name: Set correct sudoers entry for Vagrant
       lineinfile: "dest=/etc/sudoers.d/vagrant state=present create=yes regexp='^%vagrant ' line='%vagrant ALL=(ALL) NOPASSWD: ALL' validate='visudo -cf %s'"
 
+    - name: Add midonet repositories
+      include: repositories.yml
+
     - name: Update apt cache
       apt: update_cache=yes cache_valid_time=7200
 
+  roles:
+    - role: zookeeper
+      listen_address: "127.0.0.1"
+      zooid: "1"
+
+    - role: cassandra
+      cluster: "midonet"
+      listen_address: "127.0.0.1"
+      seeds: "127.0.0.1"
+
+    - role: midonet-midolman
+      zookeeper_hosts: "127.0.0.1:2181"
+      cassandra_hosts: "127.0.0.1"
+
+    - role: midonet-api
+      midonet_url: "http://127.0.0.1:8080/midonet-api"
+      nova_api_hostname: "127.0.0.1"
+      keystone_admin_token: "ADMIN_TOKEN"
+      zookeeper_hosts: "127.0.0.1:2181"
+
+    - role: midonet-cli
+      nova_api_hostname: "127.0.0.1"
 
 
   tasks:
@@ -32,7 +58,4 @@
     - name: Test mininet
       sudo: yes
       command: mn --test pingall
-
-
-
 

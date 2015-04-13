@@ -1,0 +1,21 @@
+---
+- name: Apt install required system packages.
+  apt: pkg={{item}} state=installed
+  tags: Zookeeper
+  with_items:
+    - zookeeper
+    - zookeeperd
+    - zkdump
+
+- name: Overwrite myid file.
+  template: src=myid.j2 dest=/etc/zookeeper/conf/myid
+  tags: Zookeeper
+
+- name: Overwrite default config file
+  template: src=zoo.cfg.j2 dest=/etc/zookeeper/conf/zoo.cfg
+  notify: Restart zookeeper
+  tags: Zookeeper
+
+- name: Start zookeeper
+  service: name=zookeeper state=started enabled=yes
+  tags: Zookeeper
