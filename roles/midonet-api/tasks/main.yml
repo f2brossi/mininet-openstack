@@ -1,5 +1,4 @@
 ---
 
-- include: repositories.yml
 - include: mido-api.yml
 

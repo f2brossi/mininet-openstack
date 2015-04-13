@@ -16,10 +16,6 @@
   apt_key: url=http://repo.midonet.org/packages.midokura.key state=present
   tags: Midonet
 
-- name: Add Ubuntu Cloud Archivo rep
-  apt_repository: repo='deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/juno main' state=present
-  tags: common-utils
-
 - name: Update system dist files
   action: apt update_cache=yes
   tags: common-utils
@@ -28,11 +24,12 @@
   action: apt pkg={{ item }} state=installed
   tags: common-utils
   with_items:
-    - ubuntu-cloud-keyring
     - htop
     - vim
     - python-pip
     - curl
+    - nmap
+    - python-scapy
     - git
     - unzip
     - python-software-properties
