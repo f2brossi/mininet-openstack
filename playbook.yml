@@ -55,8 +55,17 @@
     - name: Download mininet
       git: repo=https://github.com/mininet/mininet.git dest=/home/vagrant/mininet
 
+    - name: Download mininet ripl
+      git: repo=https://github.com/brandonheller/ripl.git dest=/home/vagrant/ripl
+
+    - name: Download miniNext
+      git: repo=https://github.com/USC-NSL/miniNExT.git dest=/home/vagrant/miniNExT
+
+    - name: Download mininet bgp example
+      git: repo=https://bitbucket.org/jvimal/bgp.git dest=/home/vagrant/bgp
+
     - name: Install mininet
-      command: /home/vagrant/mininet/util/install.sh -a
+      command: /home/vagrant/mininet/util/install.sh -en
 
     - name: Test mininet
       sudo: yes
