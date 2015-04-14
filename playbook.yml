@@ -11,28 +11,34 @@
     - name: Update apt cache
       apt: update_cache=yes cache_valid_time=7200
 
+    - name: Create a loop interface to host NSDB
+      shell:  ifconfig lo:2 "{{ NSDB_HOST }}" netmask 255.0.0.0 up
+
+    - name: Enable ip routing
+      shell:  sysctl -w net.ipv4.ip_forward=1
+
   roles:
     - role: zookeeper
-      listen_address: "127.0.0.1"
+      listen_address: "{{ NSDB_HOST }}"
       zooid: "1"
 
     - role: cassandra
       cluster_name: "midonet"
-      listen_address: "127.0.0.1"
-      seeds: "127.0.0.1"
+      listen_address: "{{ NSDB_HOST }}"
+      seeds: "{{ NSDB_HOST }}"
 
     - role: midonet-midolman
-      zookeeper_hosts: "127.0.0.1:2181"
-      cassandra_hosts: "127.0.0.1"
+      zookeeper_hosts: "{{ NSDB_HOST }}:2181"
+      cassandra_hosts: "{{ NSDB_HOST }}"
 
     - role: midonet-api
-      midonet_url: "http://127.0.0.1:8080/midonet-api"
-      nova_api_hostname: "127.0.0.1"
+      midonet_url: "http://{{ NSDB_HOST }}:8080/midonet-api"
+      nova_api_hostname: "{{ NSDB_HOST }}"
       keystone_admin_token: "ADMIN_TOKEN"
-      zookeeper_hosts: "127.0.0.1:2181"
+      zookeeper_hosts: "{{ NSDB_HOST }}:2181"
 
     - role: midonet-cli
-      nova_api_hostname: "127.0.0.1"
+      nova_api_hostname: "{{ NSDB_HOST }}"
 
 
   tasks:
@@ -69,5 +75,5 @@
 
     - name: Test mininet
       sudo: yes
-      command: mn --test pingall
+      command: mn --switch=lxbr --test pingall
 

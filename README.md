@@ -1,11 +1,11 @@
 # Vagrant machine with the latest version of mininet
 
-Provision a VM with ansible following 
+Provision a VM with ansible to test midonet
 
 ## Requirements
 
 * Vagrant
-** Vagrant plugins: vagrant-libvirt vagrant-mutate
+	* Vagrant plugins: vagrant-libvirt vagrant-mutate
 * Ansible
 * Libvirt
 
@@ -23,5 +23,7 @@ exec qemu-system-x86_64 -M q35 -enable-kvm "$@"
 
 You can login with vagrant ssh or use X Forwarding:
 
-`ssh -X -p 2222 -i ~/.vagrant.d/insecure_private_key vagrant@localhost xterm`
+`ssh -X -i ~/.vagrant.d/insecure_private_key vagrant@[ip addre] xterm`
+
+
 
