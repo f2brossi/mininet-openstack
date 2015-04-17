@@ -8,10 +8,10 @@
   lineinfile: "dest=/etc/midolman/midolman.conf state=present regexp='^bgpd_binary' line='bgpd_binary = /usr/lib/quagga/'"
 
 - name: Configure Max Heap Size 
-  lineinfile: "dest=/etc/midolman/midolman-env.sh state=present regexp='^MAX_HEAP_SIZE' line='MAX_HEAP_SIZE="248M"'"
+  lineinfile: "dest=/etc/midolman/midolman-env.sh state=present regexp='^MAX_HEAP_SIZE' line='MAX_HEAP_SIZE=248M'"
 
 - name: Configure Heap New Size 
-  lineinfile: "dest=/etc/midolman/midolman-env.sh state=present regexp='^HEAP_NEWSIZE' line='HEAP_NEWSIZE="152M"'"
+  lineinfile: "dest=/etc/midolman/midolman-env.sh state=present regexp='^HEAP_NEWSIZE' line='HEAP_NEWSIZE=152M'"
 
 - name: Creates Midolmans configuration file
   ini_file: dest=/etc/midolman/midolman.conf
