@@ -25,5 +25,7 @@ You can login with vagrant ssh or use X Forwarding:
 
 `ssh -X -i ~/.vagrant.d/insecure_private_key vagrant@[ip addre] xterm`
 
+## Examples
 
+There are some examples in the shared folder files/
 
