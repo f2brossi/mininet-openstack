@@ -5,14 +5,14 @@ brctl addbr br0
 ip link set br0 up
 ip addr add 10.0.0.1/8 dev br0
 # Connect mido to root namespaces so it can access the NSDB cluster
-ip link add m0-eth0 type veth peer name br0-m0
-ip link set m0-eth0 netns m0
+ip link add m0-br0 type veth peer name br0-m0
+ip link set m0-br0 netns m0
 brctl addif br0 br0-m0
 # Prepare m0
 ip netns add m0
 ip link set br0-m0 up
-ip netns exec m0 ip link set m0-eth0 up
-ip netns exec m0 ip addr add 10.0.0.2/8 dev m0-eth0
+ip netns exec m0 ip link set m0-br0 up
+ip netns exec m0 ip addr add 10.0.0.2/8 dev m0-br0
 ip netns exec m0 ip route add default via 10.0.0.1
 # Run midolman
 ip netns exec m0 /usr/share/midolman/midolman-start&
