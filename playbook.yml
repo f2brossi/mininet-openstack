@@ -12,7 +12,7 @@
       apt: update_cache=yes cache_valid_time=7200
 
     - name: Create a loop interface to host NSDB
-      shell:  ifconfig lo:2 "{{ NSDB_HOST }}" netmask 255.0.0.0 up
+      shell:  ifconfig lo:2 "{{ NSDB_HOST }}" netmask 255.255.255.0 up
 
     - name: Enable ip routing
       shell:  sysctl -w net.ipv4.ip_forward=1
