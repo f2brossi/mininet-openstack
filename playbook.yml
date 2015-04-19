@@ -55,7 +55,12 @@
         - vim
         - python-pip
         - curl
+        - dsniff
+        - iperf
         - git
+        - gcc
+        - make
+        - libpcap-dev
         - unzip
         - python-software-properties
 
@@ -70,6 +75,9 @@
 
     - name: Download mininet bgp example
       git: repo=https://bitbucket.org/jvimal/bgp.git dest=/home/vagrant/bgp
+
+    - name: Download masscan
+      git: repo=https://github.com/robertdavidgraham/masscan
 
     - name: Install mininet
       command: /home/vagrant/mininet/util/install.sh -en
