@@ -47,6 +47,7 @@
       with_items:
         - nmap
         - tcpdump
+        - wireshark
         - traceroute
         - quagga
         - screen
