@@ -1,10 +1,10 @@
-# Vagrant machine with the latest version of mininet
+# Vagrant machine on Openstack with the latest version of mininet
 
-Provision a VM with ansible following 
+Provision a VM on Openstack with ansible following 
 
 ## Requirements
 
-* Vagrant
+* Vagrant Openstack provider
 * Ansible
 
 ## Usage
