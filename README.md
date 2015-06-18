@@ -7,9 +7,14 @@ Provision a VM on Openstack with ansible following
 * Vagrant Openstack provider
 * Ansible
 
-## Usage
+## Usage with opendaylight and dlux web UI
 
-You can login with vagrant ssh or use X Forwarding:
+You can login with 
 
-`ssh -X -p 2222 -i ~/.vagrant.d/insecure_private_key vagrant@localhost xterm`
+$vagrant ssh 
 
+then
+
+$ sudo mn --controller=remote,ip=<@ip_your_odl_controller> --topo tree,3
+
+and http://<@publicIp_your_odl_controller>:8181/dlux/index.html 
