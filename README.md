@@ -17,4 +17,6 @@ then
 
 $ sudo mn --controller=remote,ip=<@ip_your_odl_controller> --topo tree,3
 
-and http://<@publicIp_your_odl_controller>:8181/dlux/index.html 
+and then browse  http://<@publicIp_your_odl_controller>:8181/dlux/index.html 
+
+to see that: https://wiki.opendaylight.org/view/OpenDaylight_dlux:yangUI-user
